@@ -11,7 +11,7 @@ set hidden
 set noswapfile
 
 " INTERFACE
-set clipboard=unnamed " http://vim.wikia.com/wiki/Mac_OS_X_clipboard_sharing#Comments
+set clipboard=unnamedplus,unnamed
 set cursorline
 set foldmethod=marker
 set diffopt+=vertical
