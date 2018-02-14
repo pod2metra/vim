@@ -66,8 +66,8 @@ vnoremap > >gv
 " THEME AND HIGHLITING
 set t_Co=256
 set background=dark
-Plug 'altercation/vim-colors-solarized'
-let g:solarized_underline=0
+Plug 'tomasr/molokai'
+let g:molokai_original = 1
 
 " COMMON PLUGINS
 
@@ -96,7 +96,7 @@ for f in split(glob('~/.vim/vimrc.d/*.vim'), '\n')
 endfor
 
 call plug#end()
-silent! colorscheme solarized
+silent! colorscheme molokai
 
 " Common commads in upper case to do want I want even if the Shift button was
 " pressed by accident.
