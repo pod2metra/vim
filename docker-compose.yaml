@@ -5,4 +5,4 @@ services:
     environment:
      - MYVIMRC=$HOME/.vim/vimrc
     volumes:
-     - ~/project:/project
+     - ~/project:/project:delegated
