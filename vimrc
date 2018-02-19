@@ -71,7 +71,7 @@ let g:molokai_original = 1
 
 " COMMON PLUGINS
 
-Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
+Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim' | Plug '/root/.vim/.fzf'
 let g:fzf_layout = { 'down': '~40%' }
 let g:fzf_buffers_jump = 1
 nmap <silent> <c-p> :Files<CR>
