@@ -1,5 +1,5 @@
-Plug 'vim-scripts/python.vim', { 'tag': '1.13' }
-Plug 'hdima/python-syntax', { 'tag': 'r3.3.5' }
+Plug 'vim-scripts/python.vim'
+Plug 'hdima/python-syntax'
 
 let python_highlight_all=1
 set wildignore+=*.pyc,.noseids,.ropeproject,__pycache__,*.egg-info
@@ -11,10 +11,10 @@ augroup my_python
     autocmd FileType python :iabbrev <buffer> ipdb import ipdb; ipdb.set_trace()
 augroup END
 
-if has('python')
+if has('python3')
 
 function! HasPythonModule(name)
-python << EOF
+python3 << EOF
 import vim
 try:
     __import__(vim.eval('a:name'))
@@ -32,7 +32,7 @@ endfunction
 "     pip install pyflakes
 "
 if HasPythonModule('pyflakes')
-    Plug 'nvie/vim-flake8', { 'tag': '1.6' }
+    Plug 'nvie/vim-flake8'
     augroup my_flake8
         autocmd!
         autocmd BufWritePost *.py call Flake8()
@@ -56,27 +56,42 @@ if HasPythonModule('jedi')
     augroup END
 
     " Load this after jedi
-    Plug 'lambdalisue/vim-pyenv', { 'tag': 'v1.4' }
-    function! s:jedi_auto_force_py_version() abort
-        let major_version = pyenv#python#get_internal_major_version()
-        call jedi#force_py_version(major_version)
-    endfunction
-    augroup vim-pyenv-custom-augroup
-        autocmd! *
-        autocmd User vim-pyenv-activate-post   call s:jedi_auto_force_py_version()
-        autocmd User vim-pyenv-deactivate-post call s:jedi_auto_force_py_version()
-    augroup END
+    Plug 'lambdalisue/vim-pyenv'
+    let g:jedi#force_py_version = 3
+    " function! s:jedi_auto_force_py_version() abort
+    "     let major_version = pyenv#python#get_internal_major_version()
+    " endfunction
+    " augroup vim-pyenv-custom-augroup
+    "     autocmd! *
+    "     autocmd User vim-pyenv-activate-post   call s:jedi_auto_force_py_version()
+    "     autocmd User vim-pyenv-deactivate-post call s:jedi_auto_force_py_version()
+    " augroup END
 endif
 
 " Activate current virtual environment
-    python << EOF
+    python3 << EOF
 import os, sys
-ve_dir = os.environ.get('VIRTUAL_ENV')
-if ve_dir:
-    ve_dir in sys.path or sys.path.insert(0, ve_dir)
-    activate = os.path.join(ve_dir, 'bin', 'activate_this.py')
-    if os.path.exists(activate):
-        execfile(activate, dict(__file__=activate))
-EOF
 
+
+def init_ve():
+    ve_dir = os.environ.get('VIRTUAL_ENV')
+    if not ve_dir:
+        return
+    ve_dir in sys.path or sys.path.insert(0, ve_dir)
+    current_dir = os.getcwd()
+    if "/projects/" not in current_dir:
+        return
+    dirs = current_dir.split("/projects/")
+    if len(dirs) == 1:
+        return
+    venv_dir = dirs[1].split("/")[0]
+    activate = "{}-venv".format(os.path.join(ve_dir, venv_dir, 'bin', 'activate_this.py'))
+    if os.path.exists(activate):
+        code = compile(open(activate).read(), activate, 'exec')
+        exec(code, {"__file__": activate}, {})
+
+
+
+init_ve()
+EOF
 endif

@@ -81,15 +81,15 @@ let g:bufExplorerShowRelativePath=1
 let g:bufExplorerSortBy='fullpath'
 nmap <silent> <Leader>e :BufExplorer<CR>
 
-Plug 'scrooloose/nerdtree', { 'tag': '4.2.0' }
+Plug 'scrooloose/nerdtree'
 let NERDTreeIgnore=[]
 nmap <silent> <Leader>t :NERDTreeToggle<CR>
-Plug 'ervandew/supertab', { 'tag': '2.1' }
-Plug 'mileszs/ack.vim', { 'tag': '1.0.8' }
-Plug 'Lokaltog/powerline', { 'tag': '1.2' }
-Plug 'tpope/vim-fugitive', { 'tag': 'v2.1' }
-Plug 'kana/vim-scratch', { 'tag': '0.1.1' }
-Plug 'scrooloose/nerdcommenter', { 'tag': '2.3.0' }
+Plug 'ervandew/supertab'
+Plug 'mileszs/ack.vim'
+Plug 'Lokaltog/powerline'
+Plug 'tpope/vim-fugitive'
+Plug 'kana/vim-scratch'
+Plug 'scrooloose/nerdcommenter'
 
 for f in split(glob('~/.vim/vimrc.d/*.vim'), '\n')
     execute 'source' f

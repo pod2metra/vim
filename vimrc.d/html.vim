@@ -2,7 +2,7 @@ Plug 'mustache/vim-mustache-handlebars'
 Plug 'digitaltoad/vim-jade'
 Plug 'briancollins/vim-jst'
 Plug 'lepture/vim-jinja'
-Plug 'django.vim'
+Plug 'weekmonster/django-plus.vim'
 
 Plug 'wavded/vim-stylus'
 Plug 'groenewege/vim-less'
