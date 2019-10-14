@@ -91,8 +91,6 @@ def init_ve():
         except:
             exec(compile(open(activate, "rb").read(), activate, 'exec'),
                  dict(__file__=activate))
-EOF
-
 
 
 init_ve()
