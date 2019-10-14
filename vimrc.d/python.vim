@@ -57,15 +57,14 @@ if HasPythonModule('jedi')
 
     " Load this after jedi
     Plug 'lambdalisue/vim-pyenv'
-    let g:jedi#force_py_version = 3
-    " function! s:jedi_auto_force_py_version() abort
-    "     let major_version = pyenv#python#get_internal_major_version()
-    " endfunction
-    " augroup vim-pyenv-custom-augroup
-    "     autocmd! *
-    "     autocmd User vim-pyenv-activate-post   call s:jedi_auto_force_py_version()
-    "     autocmd User vim-pyenv-deactivate-post call s:jedi_auto_force_py_version()
-    " augroup END
+    function! s:jedi_auto_force_py_version() abort
+        let major_version = pyenv#python#get_internal_major_version()
+    endfunction
+    augroup vim-pyenv-custom-augroup
+        autocmd! *
+        autocmd User vim-pyenv-activate-post   call s:jedi_auto_force_py_version()
+        autocmd User vim-pyenv-deactivate-post call s:jedi_auto_force_py_version()
+    augroup END
 endif
 
 " Activate current virtual environment
@@ -87,8 +86,12 @@ def init_ve():
     venv_dir = dirs[1].split("/")[0]
     activate = "{}-venv".format(os.path.join(ve_dir, venv_dir, 'bin', 'activate_this.py'))
     if os.path.exists(activate):
-        code = compile(open(activate).read(), activate, 'exec')
-        exec(code, {"__file__": activate}, {})
+        try:
+            execfile(activate, dict(__file__=activate))
+        except:
+            exec(compile(open(activate, "rb").read(), activate, 'exec'),
+                 dict(__file__=activate))
+EOF
 
 
 
